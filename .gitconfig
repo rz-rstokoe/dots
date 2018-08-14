@@ -1,0 +1,9 @@
+[user]
+	name = Robby Stokoe
+	email = robbystk@gmail.com
+[core]
+	editor = vim
+    autocrlf = input
+[alias]
+	lola = log --oneline --graph --decorate --all
+	lol = log --oneline --graph --decorate
