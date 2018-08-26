@@ -6,6 +6,7 @@
 [[ $- != *i* ]] && return
 
 # git prompt
+# inspired by https://bytebaker.com/2012/01/09/show-git-information-in-your-prompt/
 
 function git-branch-name {
     echo $(git symbolic-ref HEAD 2>/dev/null |awk -F/ {'print $NF'})
