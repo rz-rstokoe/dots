@@ -54,6 +54,9 @@ alias ss='scrot -s ~/usr/img/scrot/%F_%T.png'
 alias grep='grep --color=auto'
 alias pacman='pacman --color=auto'
 alias wim='vim -c "set nonu spell"'
+# use special command for tracking configuration files
+# from: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
+alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 
 # disable beeps
 alias less='less -Q'
