@@ -67,6 +67,21 @@ function mkcd {
     mkdir -p $1 && cd $1
 }
 
+function cinit {
+    mkcd $1 && cat <<EOF >Makefile && vim a.c
+CFLAGS=-Wall -g
+
+default: a
+
+clean:
+	rm a
+EOF
+}
+
+function rbinit {
+    mkcd $1 && vim a.rb
+}
+
 latex_make_path=~/usr/projects/latex-make/Makefile
 
 function newtex {
