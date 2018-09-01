@@ -36,10 +36,8 @@ function gitify {
     fi
 }
 
-GEM_PATH=$(ruby -e 'print Gem.user_dir')
-
 PS1='[\u@\h \W]$(gitify)\$ '
-PATH="${PATH}:${GEM_PATH}/bin:~/bin:~/.cargo/bin:."
+PATH="${PATH}:~/bin:~/.cargo/bin:."
 
 set -o vi
 
