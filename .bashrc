@@ -39,6 +39,12 @@ function gitify {
 PS1='[\u@\h \W]$(gitify)\$ '
 PATH="${PATH}:~/bin:~/.cargo/bin:."
 
+# search packages when a command is not found
+source /usr/share/doc/pkgfile/command-not-found.bash
+
+# something about graphics
+export NO_AT_BRIDGE=1
+
 set -o vi
 
 # use exa instead of ls
@@ -57,9 +63,9 @@ alias wim='vim -c "set nonu spell"'
 # from: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 
-# disable beeps
-alias less='less -Q'
-alias man='man -P "less -Q"'
+alias fireworkx='xscreensaver-command -demo 159 >/dev/null'
+alias fireworks='xscreensaver-command -demo 159 >/dev/null'
+alias yay='xscreensaver-command -demo 159 >/dev/null'
 
 function mkcd {
     mkdir -p $1 && cd $1
