@@ -1,6 +1,8 @@
 [user]
 	name = Robby Stokoe
 	email = robbystk@gmail.com
+[push]
+	default = matching
 [core]
 	editor = vim
     autocrlf = input
