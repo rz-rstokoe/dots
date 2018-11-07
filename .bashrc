@@ -161,3 +161,38 @@ function orb {
     firefox ${rust_book_ref_path}${current_chapter} &
     )
 }
+
+notes_dir='/home/robby/usr/notes'
+
+# new note
+function nn() {
+    (
+    set -e
+    date=$(date +%F)
+    datetime=$(date +%FT%T%:z)
+    file=${notes_dir}/content/post/${date}_${1}.md
+    if [[ ! -e $file ]]
+    then
+        cat <<EOF >$file
+---
+title:  "$1"
+date:   $datetime
+draft:  false
+---
+
+EOF
+        vim $file
+    else
+        echo "File already exists!" && exit 1
+    fi
+    )
+}
+
+# view notes
+function vn() {
+    (
+    set -e
+    cd $notes_dir
+    hugo server && firefox localhost:1313
+    )
+}
