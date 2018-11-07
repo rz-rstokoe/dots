@@ -119,8 +119,11 @@ EOF
 }
 
 function tlmgr {
+    (
+    set -e
     tllocalmgr $*
-    echo done
+    sudo texhash
+    )
 }
 
 function bye {
