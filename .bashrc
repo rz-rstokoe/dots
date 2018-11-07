@@ -45,6 +45,7 @@ set -o vi
 alias ls='exa'
 alias ll='exa -l'
 alias la='exa -la'
+alias recent='exa -lsold'
 alias wat='echo "dunno man"'
 alias okay='echo yes'
 alias k='okay'
