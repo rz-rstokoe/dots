@@ -193,6 +193,8 @@ function vn() {
     (
     set -e
     cd $notes_dir
-    hugo server && firefox localhost:1313
+    hugo server &
+    firefox localhost:1313
+    wait %1
     )
 }
