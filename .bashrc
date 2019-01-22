@@ -139,7 +139,7 @@ function bye {
     fi
 }
 
-rust_book_ref_path=~/usr/ref/rust-book/second-edition/book/
+rust_book_ref_path=~/usr/ref/rust-book/book/
 rust_book_work_path=~/usr/projects/rust/book
 
 # open rust book
