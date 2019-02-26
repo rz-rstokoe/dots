@@ -51,6 +51,7 @@ set -o vi
 alias ls='exa'
 alias ll='exa -l'
 alias la='exa -la'
+alias recent='exa -lsold'
 alias wat='echo "dunno man"'
 alias okay='echo yes'
 alias k='okay'
@@ -125,8 +126,11 @@ EOF
 }
 
 function tlmgr {
+    (
+    set -e
     tllocalmgr $*
-    echo done
+    sudo texhash
+    )
 }
 
 function bye {
@@ -141,7 +145,7 @@ function bye {
     fi
 }
 
-rust_book_ref_path=~/usr/ref/rust-book/second-edition/book/
+rust_book_ref_path=~/usr/ref/rust-book/book/
 rust_book_work_path=~/usr/projects/rust/book
 
 # open rust book
@@ -155,11 +159,16 @@ function orb {
     cd $rust_book_work_path && \
     ( # in subshell so we can do set -e
     set -e
-    previous_chapter=$(git tag |tail -1 \
-        | sed 's/ch\([1-9]\)\.\([1-9]\)/ch0\1-0\2/')
+    previous_chapter=$(git tag \
+        | sed 's/^ch\([0-9]\+\.[0-9]\+\)/\1/'\
+        | sort -n | tail -1)
+    ch=$(echo $previous_chapter |cut -f1 -d.)
+    sec=$(echo $previous_chapter |cut -f2 -d.)
+    previous_chapter=$(printf "ch%02d-%02d\n" $ch $sec)
     file_index=$(grep --line-number $previous_chapter <(ls $rust_book_ref_path)\
         | awk -F: '{print $1+1}')
-    current_chapter=$(sed -n "${file_index}p" <(ls $rust_book_ref_path))
+    current_chapter=$(sed -n "${file_index}p" <(ls $rust_book_ref_path)\
+        | head -1)
     firefox ${rust_book_ref_path}${current_chapter} &
     )
 }
