@@ -1,0 +1,18 @@
+#! /bin/bash
+
+set -e
+
+function update() {
+    git merge --ff origin/master && makepkg -i
+}
+
+revisions=$(git fetch |sed -n '$s/^\s\+\([a-f0-9]\+\.\.[a-f0-9]\+\)/\1/p')
+
+git show $revisions
+
+read -p "Continue? [y/n] " choice
+case "$choice" in
+    Y|y ) update;;
+    N|n ) echo "Please delete this package and disable notifications" && exit 0;;
+    * ) echo "Invalid" && exit 1;;
+esac

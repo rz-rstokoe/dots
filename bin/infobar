@@ -1,0 +1,71 @@
+#! /bin/bash
+
+# fetch and print info to be displayed in a bar
+
+function datetime {
+    date '+%F %R'
+}
+
+function battery {
+    bat_cap=$(cat /sys/class/power_supply/BAT0/capacity)
+    bat_stat=$(cat /sys/class/power_supply/BAT0/status)
+
+    if [[ $bat_stat == 'Charging' ]]
+    then
+        echo "+${bat_cap}"
+    else
+        echo "-${bat_cap}"
+    fi
+}
+
+function volume {
+    amixer sget Master |sed -n 's/^.*\[\([0-9]\+\)%\].*$/\1/p' |uniq
+}
+
+function pcpu {
+    ps -eo pcpu |awk 'BEGIN {sum=0.0f} {sum+=$1} END {print sum}'
+}
+
+function memory {
+    total=$(grep 'MemTotal' /proc/meminfo |awk '{print $2}')
+    free=$(grep 'MemFree' /proc/meminfo |awk '{print $2}')
+    buffer=$(grep 'Buffers' /proc/meminfo |awk '{print $2}')
+    cache=$(grep '^Cached' /proc/meminfo |awk '{print $2}')
+
+    bc <<< "100 * ($total - $free - $buffer - $cache) / $total"
+}
+
+function network {
+    read lo int1 int2 <<< `ip link |sed -n 's/^[0-9]: \(.*\):.*$/\1/p' |paste -sd " "`
+
+    if iw dev "$int1" info >/dev/null 2>&1
+    then
+        wifi=$int1
+        eth=$int2
+    else
+        wifi=$int2
+        eth=$int1
+    fi
+
+    estat=$(ip link show $eth |grep 'state UP' >/dev/null && echo '-')
+    wstat=$(ip link show $wifi |grep 'state UP' >/dev/null && echo 'w')
+
+    cstat=$(ping -c 1 comcast.net >/dev/null 2>&1 && echo 'O' || echo 'X')
+
+    echo "$estat$wstat$cstat"
+}
+
+while :
+do
+    buf=""
+    buf="${buf} bat: $(battery)% "
+    buf="${buf} vol: $(volume)% "
+    buf="${buf} cpu: $(pcpu)% "
+    buf="${buf} mem: $(memory)% "
+    buf="${buf} net: $(network) "
+    buf="${buf}    $(datetime)"
+
+    echo $buf
+
+    sleep 1
+done

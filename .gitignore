@@ -4,3 +4,6 @@
 !.bashrc
 !.vimrc
 !.gitconfig
+!bin
+!bin/aur-update
+!bin/infobar
