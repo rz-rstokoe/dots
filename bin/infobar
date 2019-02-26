@@ -2,19 +2,29 @@
 
 # fetch and print info to be displayed in a bar
 
+set -e
+
 function datetime {
     date '+%F %R'
 }
 
 function battery {
-    bat_cap=$(cat /sys/class/power_supply/BAT0/capacity)
-    bat_stat=$(cat /sys/class/power_supply/BAT0/status)
+    statfile='/sys/class/power_supply/BAT0/status'
+    capfile='/sys/class/power_supply/BAT0/capacity'
 
-    if [[ $bat_stat == 'Charging' ]]
+    label='bat'
+    if [[ -e $capfile && -e $statfile ]]
     then
-        echo "+${bat_cap}"
-    else
-        echo "-${bat_cap}"
+        bat_cap=$(cat /sys/class/power_supply/BAT0/capacity)
+        bat_stat=$(cat /sys/class/power_supply/BAT0/status)
+
+
+        if [[ $bat_stat == 'Charging' ]]
+        then
+            echo "${label}: +${bat_cap}% "
+        else
+            echo "${label}: -${bat_cap}% "
+        fi
     fi
 }
 
@@ -58,7 +68,7 @@ function network {
 while :
 do
     buf=""
-    buf="${buf} bat: $(battery)% "
+    buf="${buf} $(battery)"
     buf="${buf} vol: $(volume)% "
     buf="${buf} cpu: $(pcpu)% "
     buf="${buf} mem: $(memory)% "
