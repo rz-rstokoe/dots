@@ -70,6 +70,7 @@ endif
 " Settings for specific filetypes {{{
 augroup configgroup
     autocmd FileType md setlocal spell
+    autocmd FileType make setlocal noexpandtab
     autocmd FileType tex setlocal spell
     autocmd FileType tex setlocal commentstring=\%\ %s
 augroup END
