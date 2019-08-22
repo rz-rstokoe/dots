@@ -33,7 +33,7 @@ function volume {
 }
 
 function pcpu {
-    ps -eo pcpu |awk 'BEGIN {sum=0.0f} {sum+=$1} END {print sum}'
+    ps -eo pcpu |awk 'BEGIN {sum=0.0f} {sum+=$1} END {printf "%.0f", sum}'
 }
 
 function memory {
