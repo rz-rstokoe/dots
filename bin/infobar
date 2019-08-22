@@ -37,18 +37,15 @@ function pcpu {
 }
 
 function memory {
-    total=$(grep 'MemTotal' /proc/meminfo |awk '{print $2}')
-    free=$(grep 'MemFree' /proc/meminfo |awk '{print $2}')
-    buffer=$(grep 'Buffers' /proc/meminfo |awk '{print $2}')
-    cache=$(grep '^Cached' /proc/meminfo |awk '{print $2}')
-
-    bc <<< "100 * ($total - $free - $buffer - $cache) / $total"
-}
-
-function swap {
-    awk '/SwapTotal/{total=$2};
-        /SwapFree/{free=$2}
-        END {printf "%.0f", 100 * (total - free) / total}'\
+    awk '/MemTotal/{memtotal=$2};
+        /MemFree/{memfree=$2};
+        /Buffers/{buffer=$2};
+        /^Cached/{cache=$2};
+        /SwapTotal/{swaptotal=$2};
+        /SwapFree/{swapfree=$2};
+        END {printf "mem: %.0f%% swp: %.0f%%",
+            100 * (memtotal - memfree - buffer - cache) / memtotal,
+            100 * (swaptotal - swapfree) / swapfree}'\
         /proc/meminfo
 }
 
@@ -90,8 +87,7 @@ do
     # buf="${buf} pkg: $(updates)"
     buf="${buf} vol: $(volume)%"
     buf="${buf} cpu: $(pcpu)%"
-    buf="${buf} mem: $(memory)%"
-    buf="${buf} swp: $(swap)%"
+    buf="${buf} $(memory)"
     buf="${buf} $(disks)"
     buf="${buf} net: $(network)"
     buf="${buf} $(datetime)"
