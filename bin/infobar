@@ -5,7 +5,7 @@
 set -e
 
 function datetime {
-    date '+%F %R'
+    date '+%F %T'
 }
 
 function battery {
