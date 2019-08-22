@@ -65,6 +65,10 @@ function network {
     echo "$estat$wstat$cstat"
 }
 
+function disks {
+    df -h |grep "dev/sda" |grep -v "mnt" |awk '{print $6 ": " $5}' |xargs
+}
+
 while :
 do
     buf=""
@@ -72,6 +76,7 @@ do
     buf="${buf} vol: $(volume)% "
     buf="${buf} cpu: $(pcpu)% "
     buf="${buf} mem: $(memory)% "
+    buf="${buf} $(disks) "
     buf="${buf} net: $(network) "
     buf="${buf}    $(datetime)"
 
