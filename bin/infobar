@@ -81,12 +81,12 @@ do
     buf=""
     buf="${buf} $(battery)"
     # buf="${buf} pkg: $(updates)"
-    buf="${buf} vol: $(volume)% "
-    buf="${buf} cpu: $(pcpu)% "
-    buf="${buf} mem: $(memory)% "
-    buf="${buf} $(disks) "
-    buf="${buf} net: $(network) "
-    buf="${buf}    $(datetime)"
+    buf="${buf} vol: $(volume)%"
+    buf="${buf} cpu: $(pcpu)%"
+    buf="${buf} mem: $(memory)%"
+    buf="${buf} $(disks)"
+    buf="${buf} net: $(network)"
+    buf="${buf} $(datetime)"
 
     echo $buf
 
