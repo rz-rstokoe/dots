@@ -29,11 +29,15 @@ function battery {
 }
 
 function volume {
-    amixer sget Master |sed -n 's/^.*\[\([0-9]\+\)%\].*$/\1/p' |uniq
+    echo "vol: $(
+        amixer sget Master |sed -n 's/^.*\[\([0-9]\+\)%\].*$/\1/p' |uniq
+    )"
 }
 
 function pcpu {
-    ps -eo pcpu |awk 'BEGIN {sum=0.0f} {sum+=$1} END {printf "%.0f", sum}'
+    echo "cpu: $(
+        ps -eo pcpu |awk 'BEGIN {sum=0.0f} {sum+=$1} END {printf "%.0f", sum}'
+    )"
 }
 
 function memory {
@@ -66,7 +70,7 @@ function network {
 
     cstat=$(ping -c 1 comcast.net >/dev/null 2>&1 && echo 'O' || echo 'X')
 
-    echo "$estat$wstat$cstat"
+    echo "net: $estat$wstat$cstat"
 }
 
 function disks {
@@ -77,19 +81,21 @@ function disks {
 }
 
 function updates {
-    checkupdates |wc -l
+    echo "pkg: $(
+        checkupdates |wc -l
+    )"
 }
 
 while :
 do
     buf=""
     buf="${buf} $(battery)"
-    # buf="${buf} pkg: $(updates)"
-    buf="${buf} vol: $(volume)%"
-    buf="${buf} cpu: $(pcpu)%"
+    # buf="${buf} $(updates)"
+    buf="${buf} $(volume)%"
+    buf="${buf} $(pcpu)%"
     buf="${buf} $(memory)"
     buf="${buf} $(disks)"
-    buf="${buf} net: $(network)"
+    buf="${buf} $(network)"
     buf="${buf} $(datetime)"
 
     echo $buf
