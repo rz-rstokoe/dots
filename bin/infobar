@@ -45,6 +45,13 @@ function memory {
     bc <<< "100 * ($total - $free - $buffer - $cache) / $total"
 }
 
+function swap {
+    total=$(awk '/SwapTotal/{print $2}' /proc/meminfo)
+    free=$(awk '/SwapFree/{print $2}' /proc/meminfo)
+
+    bc <<< "100 * ($total - $free) / $total"
+}
+
 function network {
     read lo int1 int2 <<< `ip link |sed -n 's/^[0-9]: \(.*\):.*$/\1/p' |paste -sd " "`
 
@@ -84,6 +91,7 @@ do
     buf="${buf} vol: $(volume)%"
     buf="${buf} cpu: $(pcpu)%"
     buf="${buf} mem: $(memory)%"
+    buf="${buf} swp: $(swap)%"
     buf="${buf} $(disks)"
     buf="${buf} net: $(network)"
     buf="${buf} $(datetime)"
