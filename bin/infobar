@@ -46,10 +46,10 @@ function memory {
 }
 
 function swap {
-    total=$(awk '/SwapTotal/{print $2}' /proc/meminfo)
-    free=$(awk '/SwapFree/{print $2}' /proc/meminfo)
-
-    bc <<< "100 * ($total - $free) / $total"
+    awk '/SwapTotal/{total=$2};
+        /SwapFree/{free=$2}
+        END {printf "%.0f", 100 * (total - free) / total}'\
+        /proc/meminfo
 }
 
 function network {
