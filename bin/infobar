@@ -73,7 +73,7 @@ function disks {
     # show only `/dev/sda*`, and exclude partitions mounted in `/mnt/`
     # change `$5` to `$3` to see absolute numbers
     # also `-h` is not necessary for percents but whatever
-    df -h |awk '/dev\/sda/&&!/mnt/{print $6 ": " $5}' |xargs
+    df -h |awk '/dev\/sda/&&!/mnt/{printf "%s: %d%% ", $6, $5}'
 }
 
 function updates {
