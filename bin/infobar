@@ -72,10 +72,15 @@ function disks {
     df -h |awk '/dev\/sda/&&!/mnt/{print $6 ": " $5}' |xargs
 }
 
+function updates {
+    checkupdates |wc -l
+}
+
 while :
 do
     buf=""
     buf="${buf} $(battery)"
+    # buf="${buf} pkg: $(updates)"
     buf="${buf} vol: $(volume)% "
     buf="${buf} cpu: $(pcpu)% "
     buf="${buf} mem: $(memory)% "
