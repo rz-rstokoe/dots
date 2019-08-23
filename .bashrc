@@ -108,6 +108,7 @@ function newtex {
             ;;
         *)
             echo "usage $0 filename [directory] [title] "
+            return
             ;;
     esac
 
