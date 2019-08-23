@@ -47,6 +47,12 @@ export NO_AT_BRIDGE=1
 
 set -o vi
 
+# make tabs the proper width
+tabs -4
+LESS='x4'
+# this breaks git paging, so fix that
+GIT_PAGER='less -FRX'
+
 # use exa instead of ls
 alias ls='exa'
 alias ll='exa -l'
@@ -112,18 +118,18 @@ function newtex {
             ;;
     esac
 
-    mkcd $dir && cp $latex_make_path ./ && [[ ! -e ${file}.tex ]] && cat <<EOF >${file}.tex && vim ${file}.tex || echo "${file}.tex exists"
-\documentclass[12pt,letterpaper]{article}
+    mkcd $dir && cp $latex_make_path ./ && [[ ! -e ${file}.tex ]] && cat <<- EOF >${file}.tex && vim ${file}.tex || echo "${file}.tex exists"
+			\documentclass[12pt,letterpaper]{article}
 
-\title{$title}
-\author{Robby Stokoe}
-\date{\today}
+			\title{$title}
+			\author{Robby Stokoe}
+			\date{\today}
 
-\begin{document}
-\maketitle
+			\begin{document}
+			\maketitle
 
-\end{document}
-EOF
+			\end{document}
+			EOF
 }
 
 function tlmgr {
