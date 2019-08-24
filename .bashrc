@@ -22,7 +22,7 @@ function git-dirty {
 
 function git-unpushed {
     brinfo=$(git branch -v |grep $(git-branch-name))
-    if [[ $brinfo =~ ("[ahead "([[0-9]]*)]) ]]
+    if [[ $brinfo =~ (\[ahead ([0-9]+)\]) ]]
     then
         echo "${BASH_REMATCH[2]}"
     fi
