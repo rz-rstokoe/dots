@@ -69,6 +69,9 @@ endif
 
 " Settings for specific filetypes {{{
 augroup configgroup
+    " not sure if necessary, but I saw it here:
+    " https://www.reddit.com/r/vim/wiki/where_to_put_filetype_specific_stuff
+    autocmd!
     autocmd FileType md setlocal spell
     autocmd FileType make setlocal noexpandtab
     autocmd FileType tex setlocal spell
