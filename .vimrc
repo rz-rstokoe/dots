@@ -76,6 +76,8 @@ augroup configgroup
     autocmd FileType make setlocal noexpandtab
     autocmd FileType tex setlocal spell
     autocmd FileType tex setlocal commentstring=\%\ %s
+    autocmd Filetype ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype eruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup END
 " }}}
 
