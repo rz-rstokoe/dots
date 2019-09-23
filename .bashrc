@@ -37,6 +37,7 @@ function gitify {
 }
 
 PS1='[\u@\h \W]$(gitify)\$ '
+PATH="${PATH}:$(ruby -e 'puts Gem.user_dir')/bin"
 PATH="${PATH}:~/bin:~/.cargo/bin:."
 
 set -o vi
