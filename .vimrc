@@ -69,11 +69,37 @@ endif
 
 " Settings for specific filetypes {{{
 augroup configgroup
+    " not sure if necessary, but I saw it here:
+    " https://www.reddit.com/r/vim/wiki/where_to_put_filetype_specific_stuff
+    autocmd!
     autocmd FileType md setlocal spell
     autocmd FileType make setlocal noexpandtab
     autocmd FileType tex setlocal spell
     autocmd FileType tex setlocal commentstring=\%\ %s
+    autocmd Filetype ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype eruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    " always start at the top in a commit message
+    autocmd BufNewFile,BufRead COMMIT_EDITMSG exe "normal gg"
 augroup END
+" }}}
+
+" Command-T settings {{{
+" change selected color so it doesn't blend into footer
+let g:CommandTHighlightColor='TabLineSel'
+" try using escape to get out
+if &term =~ "rxvt-unicode"
+    let g:CommandTCancelMap = ['<ESC>', '<C-c>']
+endif
+" start search from working directory
+let g:CommandTTraverseSCM='pwd'
+" press enter to open in a new tab
+let g:CommandTAcceptSelectionTabMap='<CR>'
+" press ctrl + enter to open in current tab
+let g:CommandTAcceptSelectionMap='<C-CR>'
+" press shift + enter to open in new split (Shift for Split)
+let g:CommandTAcceptSelectionSplitMap='<S-CR>'
+" ignore certain files when searching
+set wildignore+=node_modules/*,tmp/*
 " }}}
 
 " use the last line of the file to configure specific settings
