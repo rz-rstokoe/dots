@@ -76,6 +76,25 @@ augroup configgroup
 augroup END
 " }}}
 
+" Command-T settings {{{
+" change selected color so it doesn't blend into footer
+let g:CommandTHighlightColor='TabLineSel'
+" try using escape to get out
+if &term =~ "rxvt-unicode"
+    let g:CommandTCancelMap = ['<ESC>', '<C-c>']
+endif
+" start search from working directory
+let g:CommandTTraverseSCM='pwd'
+" press enter to open in a new tab
+let g:CommandTAcceptSelectionTabMap='<CR>'
+" press ctrl + enter to open in current tab
+let g:CommandTAcceptSelectionMap='<C-CR>'
+" press shift + enter to open in new split (Shift for Split)
+let g:CommandTAcceptSelectionSplitMap='<S-CR>'
+" ignore certain files when searching
+set wildignore+=node_modules/*,tmp/*
+" }}}
+
 " use the last line of the file to configure specific settings
 set modelines=1
 
