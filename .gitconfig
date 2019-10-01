@@ -11,6 +11,7 @@
 [core]
 	editor = vim
     autocrlf = input
+	pager = less -FRX
 [alias]
 	lola = log --oneline --graph --decorate --all
 	lol = log --oneline --graph --decorate
