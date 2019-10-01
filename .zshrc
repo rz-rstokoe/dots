@@ -71,10 +71,9 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-eval "$(rbenv init -)"
-prompt_context() {}
-
 source $ZSH/oh-my-zsh.sh
+
+eval "$(rbenv init -)"
 
 # User configuration
 
@@ -89,6 +88,10 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 function mkcd {
     mkdir -p $1 && cd $1
 }
+
+# set default user so that it won't be displayed in the prompt unless I'm logged
+# in as somebody else.
+DEFAULT_USER='robby'
 
 set -o vi
 
