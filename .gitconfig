@@ -1,6 +1,11 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [user]
 	name = Robby Stokoe
-	email = robbystk@gmail.com
+	email = rstokoe@tracefirst.com
 [push]
 	default = matching
 [core]
