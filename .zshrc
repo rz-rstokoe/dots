@@ -1,6 +1,5 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$PATH:/usr/local/mysql/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/robby/.oh-my-zsh"
@@ -76,6 +75,9 @@ source $ZSH/oh-my-zsh.sh
 eval "$(rbenv init -)"
 
 # User configuration
+
+PATH="${PATH}:$(ruby -e 'puts Gem.user_dir')/bin"
+export PATH=$PATH:/usr/local/mysql/bin
 
 alias la='ls -la'
 alias ll='ls -l'
