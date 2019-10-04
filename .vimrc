@@ -83,6 +83,10 @@ augroup configgroup
 augroup END
 " }}}
 
+" Plugins {{{
+execute pathogen#infect()
+" }}}
+
 " use the last line of the file to configure specific settings
 set modelines=1
 
