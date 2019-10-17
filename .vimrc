@@ -27,7 +27,7 @@ nnoremap <leader>m :w\|:!make<CR>
 " repeat last normal-mode command while in visual mode
 " Warning: powerful as fuck
 vnoremap . :norm .<CR>
-" Use os and X clipboards (?)
+" Use os and X clipboards (if available)
 set clipboard=unnamedplus,autoselect
 " }}}
 
