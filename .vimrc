@@ -27,8 +27,9 @@ nnoremap <leader>m :w\|:!make<CR>
 " repeat last normal-mode command while in visual mode
 " Warning: powerful as fuck
 vnoremap . :norm .<CR>
-" Use os and X clipboards (?)
+" Use os and X clipboards (if available)
 set clipboard=unnamedplus,autoselect
+set ignorecase smartcase
 " }}}
 
 " colors {{{
@@ -77,7 +78,7 @@ augroup configgroup
     autocmd FileType tex setlocal spell
     autocmd FileType tex setlocal commentstring=\%\ %s
     " always start at the top in a commit message
-    autocmd BufNewFile,BufRead COMMIT_EDITMSG exe "normal gg"
+    autocmd BufNewFile,BufRead COMMIT_EDITMSG exe "set tw=72 | normal gg"
 augroup END
 " }}}
 
