@@ -32,7 +32,7 @@ set clipboard=unnamedplus,autoselect
 " }}}
 
 " colors {{{
-colorscheme default " I guess
+colorscheme slate
 syntax enable       " enable syntax hilighting
 " highlight 81st column if we go over {{{
 " this line creates a highlighting scheme to use
