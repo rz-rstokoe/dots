@@ -29,6 +29,7 @@ nnoremap <leader>m :w\|:!make<CR>
 vnoremap . :norm .<CR>
 " Use os and X clipboards (if available)
 set clipboard=unnamedplus,autoselect
+set ignorecase smartcase
 " }}}
 
 " colors {{{
