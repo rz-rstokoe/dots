@@ -109,7 +109,7 @@ set -o vi
 
 # make tabs the proper width
 tabs -4
-LESS='x4'
+LESS='FRx4'
 # this breaks git paging, so fix that by running
 # $ git config --global core.pager "less -FRX"
 
