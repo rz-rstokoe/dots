@@ -72,12 +72,22 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-eval "$(rbenv init -)"
-
 # User configuration
 
+# prepend so that we can just say `rails` instead of `bin/rails`
+# do this before rbenv init to avoid messing with it
+PATH=./bin:$PATH
+
+# prepends shims to path (among other things)
+eval "$(rbenv init -)"
+
+# include locally-installed ruby gems
 PATH="${PATH}:$(ruby -e 'puts Gem.user_dir')/bin"
-export PATH=$PATH:/usr/local/mysql/bin
+# include mysql
+PATH=$PATH:/usr/local/mysql/bin
+# include current directory
+PATH=$PATH:.
+export PATH
 
 alias la='ls -la'
 alias ll='ls -l'
