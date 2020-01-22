@@ -82,6 +82,12 @@ augroup configgroup
     autocmd FileType tex setlocal commentstring=\%\ %s
     autocmd Filetype ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
     autocmd Filetype eruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype haml setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype scss setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype js setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
     " always start at the top in a commit message
     autocmd BufNewFile,BufRead COMMIT_EDITMSG exe "set tw=72 | normal gg"
 augroup END
