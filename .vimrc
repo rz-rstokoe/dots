@@ -34,7 +34,7 @@ set ignorecase smartcase
 
 " colors {{{
 colorscheme default " I guess
-syntax enable       " enable syntax hilighting
+syntax enable       " enable syntax highlighting
 " highlight 81st column if we go over {{{
 " this line creates a highlighting scheme to use
 highlight ColorColumn ctermbg=red
