@@ -35,7 +35,7 @@ set backspace=indent,eol,start
 
 " colors {{{
 colorscheme slate
-syntax enable       " enable syntax hilighting
+syntax enable       " enable syntax highlighting
 " fix git commit message first line highlighting
 syn match gitcommitFirstLine "\%^[^;].*" nextgroup=gitcommitBlank skipnl
 " highlight 81st column if we go over {{{
