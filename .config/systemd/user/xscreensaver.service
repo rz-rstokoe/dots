@@ -1,0 +1,9 @@
+[Unit]
+Description=XScreenSaver
+
+[Service]
+ExecStart=/usr/bin/xscreensaver -no-splash
+ExecStop=/usr/bin/xscreensaver-command --exit
+
+[Install]
+WantedBy=graphical.target
