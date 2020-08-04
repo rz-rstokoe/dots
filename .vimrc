@@ -79,10 +79,6 @@ augroup END
 " Command-T settings {{{
 " change selected color so it doesn't blend into footer
 let g:CommandTHighlightColor='TabLineSel'
-" try using escape to get out
-if &term =~ "rxvt-unicode"
-    let g:CommandTCancelMap = ['<ESC>', '<C-c>']
-endif
 " start search from working directory
 let g:CommandTTraverseSCM='pwd'
 " press enter to open in a new tab
