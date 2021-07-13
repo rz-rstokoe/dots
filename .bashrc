@@ -1,176 +1,117 @@
-#
-# ~/.bashrc
-#
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
 
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-# git prompt
-# inspired by https://bytebaker.com/2012/01/09/show-git-information-in-your-prompt/
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
-function git-branch-name {
-    echo $(git symbolic-ref HEAD 2>/dev/null |awk -F/ {'print $NF'})
-}
+# append to the history file, don't overwrite it
+shopt -s histappend
 
-function git-dirty {
-    st=$(git status 2>/dev/null |tail -n 1)
-    if [[ $st != 'nothing to commit, working tree clean' ]]
-    then
-        echo '*'
-    fi
-}
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
 
-function git-unpushed {
-    brinfo=$(git branch -v |grep $(git-branch-name))
-    if [[ $brinfo =~ (\[ahead ([0-9]+)\]) ]]
-    then
-        echo "${BASH_REMATCH[2]}"
-    fi
-}
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
-function gitify {
-    branch=$(git-branch-name)
-    if [[ $branch != '' ]]
-    then
-        echo "($branch$(git-dirty)$(git-unpushed))"
-    fi
-}
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
 
-PS1='[\u@\h \W]$(gitify)\$ '
-PATH="${PATH}:$(ruby -e 'puts Gem.user_dir')/bin"
-PATH="${PATH}:~/bin:~/.cargo/bin:."
-PATH=".git/safe/../../bin:$PATH"
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-set -o vi
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
 
-# make tabs the proper width
-tabs -4
-LESS='x4'
-# this breaks git paging, so fix that
-GIT_PAGER='less -FRX'
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
 
-# use exa instead of ls
-alias ls='exa'
-alias ll='exa -l'
-alias la='exa -la'
-alias recent='exa -lsold'
-alias wat='echo "dunno man"'
-alias okay='echo yes'
-alias k='okay'
-alias psme="ps -fu $USER"
-alias ss='scrot -s ~/usr/img/scrot/%F_%T.png'
-alias grep='grep --color=auto'
-alias pacman='pacman --color=auto'
-alias wim='vim -c "set nonu spell"'
-# use special command for tracking configuration files
-# from: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
-alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
 
-# disable beeps
-alias less='less -Q'
-alias man='man -P "less -Q"'
-
-function mkcd {
-    mkdir -p $1 && cd $1
-}
-
-function cinit {
-    mkcd $1 && cat <<EOF >Makefile && vim a.c
-CFLAGS=-Wall -g
-
-default: a
-
-clean:
-	rm a
-EOF
-}
-
-function rbinit {
-    mkcd $1 && vim a.rb
-}
-
-latex_make_path=~/usr/projects/latex-make/Makefile
-
-function newtex {
-    case $# in
-        1)
-            file=$1
-            dir=$1
-            title="Title"
-            ;;
-        2)
-            file=$1
-            dir=$2
-            title="Title"
-            ;;
-        3)
-            file=$1
-            dir=$2
-            title=$3
-            ;;
-        *)
-            echo "usage $0 filename [directory] [title] "
-            ;;
-    esac
-
-    mkcd $dir && cp $latex_make_path ./ && [[ ! -e ${file}.tex ]] && cat <<- EOF >${file}.tex && vim ${file}.tex || echo "${file}.tex exists"
-			\documentclass[12pt,letterpaper]{article}
-
-			\title{$title}
-			\author{Robby Stokoe}
-			\date{\today}
-
-			\begin{document}
-			\maketitle
-
-			\end{document}
-			EOF
-}
-
-function tlmgr {
-    (
-    set -e
-    tllocalmgr $*
-    sudo texhash
-    )
-}
-
-function bye {
-    drive=$(mount |grep cifs)
-    if [[ !($? == 1) ]] # 0 if found, 1 if not, 2 if error
-    then
-        drive=$(echo $drive |awk '{print $3}')
-        echo "Unmount $drive"
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
     else
-        echo 'Shutting down'
-        shutdown now
+	color_prompt=
     fi
-}
+fi
 
-rust_book_ref_path=~/usr/ref/rust-book/book/
-rust_book_work_path=~/usr/projects/rust/book
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
 
-# open rust book
-# This gets the last git tag in the repo, adds zeros with sed if necessary,
-# figures out the index of the file in the book directory corresponding to the
-# tag (with grep), adds one to it with awk, and chooses that file with sed to
-# open that one in firefox.
-# This will probably break when I get to double-digit chapters
-# Now 100% more-readable with outlined variables
-function orb {
-    cd $rust_book_work_path && \
-    ( # in subshell so we can do set -e
-    set -e
-    previous_chapter=$(git tag \
-        | sed 's/^ch\([0-9]\+\.[0-9]\+\)/\1/'\
-        | sort -n | tail -1)
-    ch=$(echo $previous_chapter |cut -f1 -d.)
-    sec=$(echo $previous_chapter |cut -f2 -d.)
-    previous_chapter=$(printf "ch%02d-%02d\n" $ch $sec)
-    file_index=$(grep --line-number $previous_chapter <(ls $rust_book_ref_path)\
-        | awk -F: '{print $1+1}')
-    current_chapter=$(sed -n "${file_index}p" <(ls $rust_book_ref_path)\
-        | head -1)
-    firefox ${rust_book_ref_path}${current_chapter} &
-    )
-}
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
