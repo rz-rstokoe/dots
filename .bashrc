@@ -47,7 +47,7 @@ function gitify {
 }
 
 PS1='[\u@\h \W]$(gitify)\$ '
-PATH="${PATH}:$(ruby -e 'puts Gem.user_dir')/bin"
+PATH="${PATH}:$(ruby -e 'puts Gem.user_dir')/bin:$HOME/bin"
 
 set -o vi
 
@@ -100,3 +100,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+source /usr/share/google-cloud-sdk/completion.bash.inc
+source ~/monorepo/zlaverse/support/bash_functions.sh
+export COMPOSE_FILE=./docker-compose.yml:./docker-compose-linux.yml
