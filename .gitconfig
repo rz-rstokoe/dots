@@ -6,6 +6,7 @@
 [user]
 	name = Robby Stokoe
 	email = robert.stokoe@revzilla.com
+	signingkey = E42A4BF297E99209
 [push]
 	default = matching
 [core]
