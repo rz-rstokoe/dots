@@ -89,6 +89,8 @@ augroup configgroup
     autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
     autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
     autocmd Filetype haml setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype ex setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd Filetype exs setlocal tabstop=2 shiftwidth=2 softtabstop=2
     " always start at the top in a commit message
     autocmd BufNewFile,BufRead COMMIT_EDITMSG exe "set tw=72 | normal gg"
 augroup END
