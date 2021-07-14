@@ -109,10 +109,10 @@ if &term =~ "rxvt-unicode"
 endif
 " start search from working directory
 let g:CommandTTraverseSCM='pwd'
-" press enter to open in a new tab
-let g:CommandTAcceptSelectionTabMap='<CR>'
-" press ctrl + enter to open in current tab
-let g:CommandTAcceptSelectionMap='<C-CR>'
+" press ctrl + enter to open in a new tab
+let g:CommandTAcceptSelectionTabMap='<C-CR>'
+" press enter to open in new buffer
+let g:CommandTAcceptSelectionMap='<CR>'
 " press shift + enter to open in new split (Shift for Split)
 let g:CommandTAcceptSelectionSplitMap='<S-CR>'
 " ignore certain files when searching
