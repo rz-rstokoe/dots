@@ -68,7 +68,7 @@ alias wim='vim -c "set nonu spell"'
 
 # some more ls aliases
 alias ll='ls -alF'
-alias la='ls -A'
+alias la='ls -la'
 alias l='ls -CF'
 
 # use special command for tracking configuration files
