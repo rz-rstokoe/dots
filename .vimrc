@@ -4,9 +4,9 @@ filetype indent on  " load indent files for filetypes
 
 " Appearance {{{
 set number          " show line numbers
-set tabstop=4       " number of columns per tab
-set softtabstop=4   " number of spaces per tab
-set shiftwidth=4    " number of columns per indent
+set tabstop=2       " number of columns per tab
+set softtabstop=2   " number of spaces per tab
+set shiftwidth=2    " number of columns per indent
 set expandtab       " tabs are spaces
 set ruler           " show row and column numbers
 set cursorline      " hilight line cursor is on for easier placefinding
@@ -80,17 +80,6 @@ augroup configgroup
     autocmd FileType make setlocal noexpandtab
     autocmd FileType tex setlocal spell
     autocmd FileType tex setlocal commentstring=\%\ %s
-    autocmd Filetype ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype eruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype haml setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype css setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype scss setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype js setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype haml setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype ex setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd Filetype exs setlocal tabstop=2 shiftwidth=2 softtabstop=2
     " always start at the top in a commit message
     autocmd BufNewFile,BufRead COMMIT_EDITMSG exe "set tw=72 | normal gg"
 augroup END
