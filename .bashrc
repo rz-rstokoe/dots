@@ -71,6 +71,9 @@ alias ll='ls -alF'
 alias la='ls -la'
 alias l='ls -CF'
 
+# list running docker containers
+alias lscontainers="docker container ls --format '{{.Names}}'"
+
 # use special command for tracking configuration files
 # from: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
