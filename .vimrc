@@ -28,7 +28,7 @@ nnoremap <leader>m :w\|:!make<CR>
 " Warning: powerful as fuck
 vnoremap . :norm .<CR>
 " Use os and X clipboards (if available)
-set clipboard=unnamed,autoselect
+set clipboard=unnamedplus,autoselect
 set ignorecase smartcase
 set backspace=indent,eol,start
 " }}}
