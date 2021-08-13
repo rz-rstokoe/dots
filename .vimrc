@@ -34,7 +34,7 @@ set backspace=indent,eol,start
 " }}}
 
 " colors {{{
-colorscheme slate
+colorscheme elflord
 syntax enable       " enable syntax highlighting
 " fix git commit message first line highlighting
 syn match gitcommitFirstLine "\%^[^;].*" nextgroup=gitcommitBlank skipnl
