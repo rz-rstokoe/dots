@@ -80,6 +80,7 @@ augroup configgroup
     autocmd FileType make setlocal noexpandtab
     autocmd FileType tex setlocal spell
     autocmd FileType tex setlocal commentstring=\%\ %s
+    autocmd FileType command-t setlocal tabstop=4 shiftwidth=4 softtabstop=4
     " always start at the top in a commit message
     autocmd BufNewFile,BufRead COMMIT_EDITMSG exe "set tw=72 | normal gg"
 augroup END
