@@ -21,6 +21,9 @@ set hlsearch        " hilight search terms
 set incsearch       " search as you type
 " turn off search hilighting using ,<space>
 nnoremap <leader><space> :nohlsearch<CR>
+" global searching via rg via Ack.vim
+let g:ackprg = 'rg --vimgrep --no-heading'
+nnoremap <leader>a :Ack!<Space>
 " }}}
 " use ,m to run make
 nnoremap <leader>m :w\|:!make<CR>
